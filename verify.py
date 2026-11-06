@@ -21,7 +21,9 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 
 def run(cmd: list[str], cwd: str) -> tuple[bool, str]:
     try:
-        proc = subprocess.run(cmd, capture_output=True, text=True, timeout=300, cwd=cwd, encoding="utf-8", errors="replace")
+        # The modules print Turkish names; a Windows console defaults to cp1252 and would crash.
+        env = {**os.environ, "PYTHONIOENCODING": "utf-8"}
+        proc = subprocess.run(cmd, capture_output=True, text=True, timeout=300, cwd=cwd, encoding="utf-8", errors="replace", env=env)
     except subprocess.TimeoutExpired:
         return False, "timed out after 300s"
     return proc.returncode == 0, proc.stdout + proc.stderr
