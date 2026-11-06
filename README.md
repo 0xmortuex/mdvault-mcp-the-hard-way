@@ -106,3 +106,6 @@ weekly, so the code in this course can't silently stop working.
 ## License
 
 MIT
+
+> **Windows note:** the modules print Turkish note names. If a module crashes with a UnicodeEncodeError when you run it by hand, set PYTHONIOENCODING=utf-8 (or use python -X utf8 main.py). erify.py does this for you.
+
